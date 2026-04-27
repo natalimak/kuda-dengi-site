@@ -3,250 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Финансовый контроль для семьи — разбор денег</title>
-  <meta name="description" content="Финансовый разбор для семей с доходом 25–40k ₪, у которых деньги приходят, но не остаются. Не про экономию — про контроль, ясность и систему управления деньгами." />
-
-  <!-- =========================================================
-  НАСТРОЙКИ — МЕНЯЕШЬ ТОЛЬКО ЗДЕСЬ
-  =========================================================
-  WhatsApp: пример 0501234567 → 972501234567
-  ========================================================= -->
-  <script>
-    const WHATSAPP_NUMBER = "972526656406";
-    const WHATSAPP_TEXT = "Здравствуйте. У нас доход около 25–40k ₪, но деньги не остаются. Хотим понять, куда они уходят, что давит на бюджет и как выйти из нуля или минуса.";
-
-    const YOUTUBE_LINK = "https://youtube.com/@dengi.povzroslomu";
-    const FACEBOOK_LINK = "https://facebook.com/Igor.Kungurov.Family.Budget";
-    const INSTAGRAM_LINK = "https://instagram.com/igor_kungurov_family_budget";
-  </script>
-
-  <style>
-    :root {
-      --bg: #0f1115;
-      --bg-soft: #171a21;
-      --card: #1f2430;
-      --text: #f5f5f2;
-      --muted: #b9beca;
-      --accent: #d6b56d;
-      --accent-2: #f0d58d;
-      --danger: #ff6b6b;
-      --success: #7ed6a5;
-      --line: rgba(255,255,255,0.12);
-      --shadow: 0 24px 70px rgba(0,0,0,0.35);
-      --radius: 24px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(214,181,109,0.18), transparent 32%),
-        radial-gradient(circle at top right, rgba(126,214,165,0.10), transparent 28%),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15, 17, 21, 0.86);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-    }
-
-    .logo { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
-    .logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 24px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #17120a;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 16px 40px rgba(214,181,109,0.22);
-      transition: 0.25s ease;
-    }
-
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 50px rgba(214,181,109,0.32); }
-    .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); box-shadow: none; }
-
-    .hero { padding: 88px 0 72px; overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 48px; align-items: center; }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.04);
-      font-size: 14px;
-      margin-bottom: 22px;
-    }
-    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px rgba(214,181,109,0.9); }
-
-    h1 {
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 0.98;
-      letter-spacing: -2.2px;
-      margin-bottom: 24px;
-    }
-    .hero h1 span { color: var(--accent); }
-
-    .hero-text { color: var(--muted); font-size: 20px; max-width: 640px; margin-bottom: 34px; }
-    .hero-text strong { color: var(--text); }
-    .hero-text-short { display: none; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .mini-note { color: var(--muted); font-size: 14px; margin-top: 16px; }
-
-    .dashboard {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-    .dashboard-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
-    .dashboard-title { font-size: 16px; font-weight: 800; }
-    .dashboard-pill { color: #17120a; background: var(--accent); border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 800; }
-
-    .money-card { background: rgba(255,255,255,0.06); border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin-bottom: 14px; }
-    .money-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 10px; color: var(--muted); font-size: 14px; }
-    .money-row strong { color: var(--text); font-size: 24px; }
-    .bar { height: 12px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; margin-top: 12px; }
-    .bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--danger), var(--accent)); }
-    .bar.green span { background: linear-gradient(90deg, var(--success), var(--accent)); }
-
-    .visual-warning {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,107,107,0.10);
-      border: 1px solid rgba(255,107,107,0.30);
-      color: #ffd1d1;
-      font-weight: 700;
-    }
-
-    section { padding: 72px 0; }
-    .section-label { color: var(--accent); text-transform: uppercase; font-size: 13px; font-weight: 900; letter-spacing: 1.6px; margin-bottom: 12px; }
-
-    h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.05; letter-spacing: -1.4px; margin-bottom: 18px; }
-    .lead { color: var(--muted); font-size: 19px; max-width: 780px; margin-bottom: 34px; }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .card { background: rgba(255,255,255,0.055); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; min-height: 190px; }
-    .card-icon { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: rgba(214,181,109,0.14); color: var(--accent); font-size: 22px; margin-bottom: 18px; }
-    .card h3 { font-size: 22px; margin-bottom: 10px; line-height: 1.2; }
-    .card p { color: var(--muted); }
-
-    .split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 28px; align-items: start; }
-    .quote-box { background: linear-gradient(135deg, rgba(214,181,109,0.16), rgba(255,255,255,0.04)); border: 1px solid rgba(214,181,109,0.28); border-radius: var(--radius); padding: 28px; position: sticky; top: 96px; }
-    .quote-box .big { font-size: 32px; line-height: 1.1; font-weight: 900; letter-spacing: -1px; }
-
-    .truth-list { display: grid; gap: 14px; }
-    .truth-item { display: grid; grid-template-columns: 34px 1fr; gap: 14px; background: rgba(255,255,255,0.055); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
-    .truth-item b { color: var(--text); }
-    .truth-item p { color: var(--muted); }
-    .num { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #17120a; display: grid; place-items: center; font-weight: 900; }
-
-    .system { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .step { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; position: relative; overflow: hidden; }
-    .step:before { content: ""; position: absolute; right: -24px; top: -24px; width: 80px; height: 80px; border-radius: 50%; background: rgba(214,181,109,0.10); }
-    .step-number { color: var(--accent); font-size: 14px; font-weight: 900; margin-bottom: 16px; }
-    .step h3 { margin-bottom: 10px; font-size: 20px; }
-    .step p { color: var(--muted); font-size: 15px; }
-
-    .cta-band { padding: 52px; border-radius: 32px; background: linear-gradient(135deg, rgba(214,181,109,0.20), rgba(126,214,165,0.08)), var(--card); border: 1px solid rgba(214,181,109,0.28); box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-    .cta-band h2 { margin-bottom: 10px; }
-    .cta-band p { color: var(--muted); font-size: 18px; }
-
-    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .compare-box { border-radius: var(--radius); padding: 26px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); }
-    .compare-box.good { border-color: rgba(126,214,165,0.35); background: rgba(126,214,165,0.07); }
-    .compare-box.bad { border-color: rgba(255,107,107,0.35); background: rgba(255,107,107,0.07); }
-    .compare-box h3 { font-size: 26px; margin-bottom: 14px; }
-    ul { list-style: none; display: grid; gap: 10px; color: var(--muted); }
-    li { display: flex; gap: 10px; align-items: flex-start; }
-
-    .footer { padding: 34px 0; color: var(--muted); border-top: 1px solid var(--line); font-size: 14px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-    .footer-socials { display: flex; gap: 14px; flex-wrap: wrap; }
-    .footer-socials a { color: var(--accent); }
-
-    .floating-cta { display: none; position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 200; }
-    .floating-cta .btn { width: 100%; }
-
-    .about-photo {
-      width: 100%;
-      min-height: 460px;
-      border-radius: 24px;
-      object-fit: cover;
-      object-position: center top;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--line);
-    }
-
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .hero { padding: 36px 0 28px; }
-      .hero-grid, .split, .cta-band { grid-template-columns: 1fr; }
-      .cards, .steps, .compare { grid-template-columns: 1fr; }
-      .quote-box { position: relative; top: auto; }
-      .cta-band { padding: 22px; }
-      h1 { font-size: 36px; letter-spacing: -1px; }
-      .badge { font-size: 12px; padding: 6px 10px; }
-      .hero-text { display: none; }
-      .hero-text-short { display: block; color: var(--muted); font-size: 16px; margin-bottom: 18px; }
-      .dashboard { order: 2; margin-top: 12px; }
-      .hero-actions { gap: 10px; }
-      .btn { padding: 16px 18px; font-size: 15px; }
-      .floating-cta { display: block; }
-      body { padding-bottom: 78px; }
-    }
-  </style>
+  <title>Куда деньги? — финансовый контроль для семьи</title>
+  <meta name="description" content="Финансовый разбор для семей с доходом ₪25–40k, у которых деньги приходят, но не остаются. Не про экономию — про контроль, ясность и систему управления деньгами." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <a href="#top" class="logo">Деньги <span>под контролем</span></a>
+      <a href="#top" class="logo">Куда <span>деньги?</span></a>
       <nav class="nav-links">
         <a href="#pain">Знакомо?</a>
         <a href="#analysis">Как проходит разбор</a>
         <a href="#result">Результат встречи</a>
         <a href="#about">Обо мне</a>
+        <a href="#reviews">Отзывы</a>
         <a href="#" class="btn wa-link" target="_blank" rel="noopener noreferrer">Написать</a>
       </nav>
     </div>
@@ -257,35 +27,19 @@
       <div class="container hero-grid">
         <div>
           <div class="badge"><span class="badge-dot"></span> Для семей с доходом ₪25–40k, у которых деньги есть — но контроля нет</div>
-          <h1>Вы зарабатываете ₪25–40k.<br><span>Но в конце месяца снова ноль.</span></h1>
-
-          <p class="hero-text-short">
-            Доход есть. Контроля нет. В конце месяца — ноль или минус. Разбор покажет, куда уходят деньги и какие решения вернут контроль.
-          </p>
-
-          <p class="hero-text">
-            Это не про “мало зарабатываем”.
-            Это про то, что деньги сейчас живут без системы: приходят, расходятся — и в конце месяца снова остаётся напряжение.<br><br>
-            На разборе мы смотрим цифры честно: доходы, расходы, кредиты, минус, накопления и цели.
-            Вы видите, где именно теряется контроль — и какие решения могут вывести семью из нуля или минуса.<br><br>
-            <strong>Не экономия ради экономии. Контроль, ясность и конкретные шаги.</strong>
-          </p>
-
+          <h1>Вы зарабатываете ₪25–40k.<br><span>Но денег всё равно нет.</span></h1>
+          <p class="hero-text-short">Доход есть. Контроля нет. В конце месяца — ноль или минус. Разбор покажет, куда уходят деньги и какие решения вернут контроль.</p>
+          <p class="hero-text">Это не потому, что доход маленький. Это потому, что деньги живут без системы: приходят, расходятся — и в конце месяца снова остаётся напряжение.<br><br>На разборе мы честно смотрим на цифры: доходы, расходы, кредиты, минус, накопления и цели. Вы видите, где теряется контроль — и какие решения могут вывести семью из нуля или минуса.<br><br><strong>Не экономия ради экономии. Контроль, ясность и конкретные шаги.</strong></p>
           <div class="hero-actions">
             <a href="#" class="btn wa-link" target="_blank" rel="noopener noreferrer">👉 Написать и понять, куда уходят деньги</a>
             <a href="#analysis" class="btn secondary">Посмотреть, как проходит разбор</a>
           </div>
-          <p class="mini-note">Отвечу лично. Без стыда. Без морали. Без «просто меньше тратьте». Только цифры, ясность и первый ориентир.</p>
-          <p class="mini-note" style="margin-top:8px; color:#ffb3b3;">
-            Если ничего не менять — через 6–12 месяцев ситуация будет той же. Только с большим напряжением и ещё меньшим запасом денег.
-          </p>
+          <p class="mini-note">Вы просто пишете: “хочу разбор”. Я задаю 2–3 вопроса и даю первый ориентир.</p>
+          <p class="mini-note" style="margin-top:8px; color:#ffb3b3;">Если ничего не менять — через 6–12 месяцев ситуация будет той же. Только с большим напряжением и ещё меньшим запасом денег.</p>
         </div>
 
         <div class="dashboard" aria-label="Визуализация отсутствия контроля над деньгами">
-          <div class="dashboard-header">
-            <div class="dashboard-title">Узнаёте картину?</div>
-            <div class="dashboard-pill">₪30,000 есть — контроля нет</div>
-          </div>
+          <div class="dashboard-header"><div class="dashboard-title">Узнаёте картину?</div><div class="dashboard-pill">₪30,000 есть — контроля нет</div></div>
           <div class="money-card"><div class="money-row"><span>Доход семьи за месяц</span><strong>₪ 30,000</strong></div><div class="bar green"><span style="width: 100%"></span></div></div>
           <div class="money-card"><div class="money-row"><span>Жильё, еда, дети, машина</span><strong>₪ 18,500</strong></div><div class="bar"><span style="width: 62%"></span></div></div>
           <div class="money-card"><div class="money-row"><span>Кредиты, минус, рассрочки</span><strong>₪ 4,300</strong></div><div class="bar"><span style="width: 38%"></span></div></div>
@@ -301,7 +55,8 @@
         <div class="section-label">Знакомо?</div>
         <h2>Вы не бедные. Но живёте как будто доход в два раза меньше.</h2>
         <p class="lead">При таком доходе должно быть спокойнее. Но вместо этого — ноль, минус, напряжение и постоянный вопрос: куда всё ушло?</p>
-        <div class="cards">
+        <p class="mini-note">Если откликается — <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">напишите в WhatsApp</a>. Разберём вашу ситуацию.</p>
+        <div class="cards" style="margin-top:18px;">
           <div class="card"><div class="card-icon">?</div><h3>“Куда всё делось?”</h3><p>Деньги приходят, но в конце месяца невозможно точно объяснить, где они растворились.</p></div>
           <div class="card"><div class="card-icon">!</div><h3>Ноль или минус</h3><p>Доход нормальный, но остатка нет. Любая внеплановая трата снова ломает месяц.</p></div>
           <div class="card"><div class="card-icon">₪</div><h3>Нельзя позволить желаемое</h3><p>Отпуск, ремонт, помощь детям, крупная покупка — всё кажется “не сейчас”, хотя доход должен позволять больше.</p></div>
@@ -311,10 +66,7 @@
 
     <section>
       <div class="container split">
-        <div class="quote-box">
-          <div class="section-label">Что на самом деле происходит</div>
-          <div class="big">Проблема не в том, что вы мало зарабатываете. Проблема в том, что деньги не управляются.</div>
-        </div>
+        <div class="quote-box"><div class="section-label">Что на самом деле происходит</div><div class="big">Проблема не в том, что вы мало зарабатываете. Проблема в том, что деньги не управляются.</div></div>
         <div class="truth-list">
           <div class="truth-item"><div class="num">1</div><div><b>Вы не видите реальную картину</b><p>Не «примерно понимаем» и не «вроде нормально», а точная картина: сколько пришло, куда ушло, что осталось и почему.</p></div></div>
           <div class="truth-item"><div class="num">2</div><div><b>Деньги принимают решения вместо вас</b><p>Покупки, дети, дом, рестораны, маркетплейсы, подарки — всё решается в моменте, без семейной рамки.</p></div></div>
@@ -329,7 +81,8 @@
         <div class="section-label">Как проходит разбор</div>
         <h2>Мы не говорим “тратьте меньше”. Мы разбираем, что происходит с вашими деньгами на самом деле.</h2>
         <p class="lead">Разбор не про критику и не про экономию. Его задача — показать реальную картину: куда уходят деньги, почему они не остаются и какие решения вернут семье контроль.</p>
-        <div class="steps">
+        <p class="mini-note">Хотите так же — <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">напишите “разбор”</a>.</p>
+        <div class="steps" style="margin-top:18px;">
           <div class="step"><div class="step-number">01</div><h3>Понимаем точную картину</h3><p>Смотрим доходы, расходы, обязательства, кредиты, минус, накопления и реальный остаток месяца.</p></div>
           <div class="step"><div class="step-number">02</div><h3>Находим, где теряется контроль</h3><p>Проверяем повседневные траты, еду, детей, дом, подписки, спонтанные покупки и “невидимые” утечки.</p></div>
           <div class="step"><div class="step-number">03</div><h3>Разбираем долги и нагрузку</h3><p>Смотрим кредиты, рассрочки, минус и обязательства. Если нужно — проверяем, есть ли смысл в рефинансировании.</p></div>
@@ -349,9 +102,10 @@
     <section id="result">
       <div class="container">
         <div class="section-label">Что изменится уже после первой встречи</div>
-        <h2>После разбора у вас появляется не теория, а понятная картина и первые решения.</h2>
-        <p class="lead">Вы уходите с чёткой финансовой картой и конкретными решениями: где именно утекают деньги, что давит на бюджет, какие суммы можно освободить уже сейчас и какие шаги выведут вас из нуля или минуса в управляемый плюс.</p>
-        <div class="cards">
+        <h2>Уже после первой встречи есть чёткое направление. К завершению процесса — измеримый результат.</h2>
+        <p class="lead">После первой встречи вы понимаете, где теряются деньги и какие шаги делать сразу. К завершению процесса, который я сопровождаю, выстраивается система: снижается нагрузка, появляются накопления и, как правило, высвобождается до 15% бюджета — без увеличения дохода.</p>
+        <p class="mini-note">Если хотите такой результат — <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">напишите сейчас</a>.</p>
+        <div class="cards" style="margin-top:18px;">
           <div class="card"><div class="card-icon">✓</div><h3>Понимание, куда уходят деньги</h3><p>Не ощущения и догадки, а конкретные зоны, где деньги расходятся незаметно.</p></div>
           <div class="card"><div class="card-icon">₪</div><h3>Первые точки освобождения денег</h3><p>Где можно снизить нагрузку, что пересмотреть и какие решения дадут эффект быстрее всего.</p></div>
           <div class="card"><div class="card-icon">→</div><h3>План ближайших действий</h3><p>Что делать в первую очередь, чтобы месяц перестал заканчиваться нулём, минусом и стрессом.</p></div>
@@ -366,6 +120,7 @@
           <div>
             <h2>Я не учу экономить. Я помогаю вернуть контроль над деньгами.</h2>
             <p class="lead">Я работаю с семьями, у которых доход есть, но спокойствия нет. Деньги приходят, расходятся, а в конце месяца снова вопрос: «куда всё ушло?»</p>
+            <p class="mini-note">Можно продолжать так же. А можно <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">разобраться и навести порядок</a>.</p>
             <p class="lead">Я не смотрю на семью сверху и не говорю «просто меньше тратьте». На разборе мы спокойно и честно смотрим на цифры: доходы, расходы, кредиты, минус, накопления и цели.</p>
             <p class="lead">Моя задача — не найти виноватых, а показать систему: где деньги теряются, что давит на бюджет и какие решения вернут контроль уже сейчас.</p>
             <div class="cards" style="grid-template-columns: 1fr; margin-top: 12px;">
@@ -375,7 +130,7 @@
           </div>
           <div>
             <img src="photo.jpg" alt="Финансовый консультант" class="about-photo" />
-          
+            <p class="mini-note" style="margin-top:14px;">Используйте сильное фото у перил: живой взгляд, лёгкая улыбка, уверенность без официоза. Назовите файл <strong>photo.jpg</strong> и положите рядом с index.html.</p>
           </div>
         </div>
       </div>
@@ -384,14 +139,31 @@
     <section id="reviews">
       <div class="container">
         <div class="section-label">Что говорят клиенты</div>
-        <h2>После разбора люди перестают жить в режиме «куда всё делось»</h2>
-        <p class="lead">Это не про мотивацию. Это про конкретные изменения в деньгах и ощущении контроля.</p>
+        <h2>Люди приходят с ощущением “куда всё делось”. Уходят с контролем.</h2>
+        <p class="lead">Отзывы ниже — не про “понравилось”. Они про то, что меняется, когда деньги становятся понятными.</p>
+        <div class="quote-box" style="position:relative; top:auto; margin-bottom:18px;"><div class="big">«Сегодня я знаю, где каждый шекель, и больше не паникую из-за неожиданных расходов».</div><p class="mini-note" style="margin-top:14px;">Илана · семья с 5 детьми · перевод с иврита</p></div>
+        <div class="quote-box" style="position:relative; top:auto; margin-bottom:18px;"><div class="big">«Я перестала быть жертвой обстоятельств. Теперь я управляю деньгами, а не они мной».</div><p class="mini-note" style="margin-top:14px;">Женщина, 50 лет · перевод с иврита</p></div>
         <div class="cards">
-          <div class="card"><h3>«Мы впервые увидели реальную картину»</h3><p>Мы думали, что у нас всё нормально. Оказалось — деньги утекают системно. После разбора стало понятно, где теряется почти 7,000 ₪.</p></div>
-          <div class="card"><h3>«Появилось спокойствие»</h3><p>Раньше каждый месяц был стресс. Сейчас мы понимаем, что происходит заранее и не живём в постоянном напряжении.</p></div>
-          <div class="card"><h3>«Деньги нашлись внутри»</h3><p>Без увеличения дохода освободили деньги просто за счёт структуры и решений.</p></div>
+          <div class="card"><h3>«Мы вернули контроль и спокойствие»</h3><p>Мы пришли перед ремонтом с большим страхом за бюджет. В процессе появилась ясность, план и ощущение, что ситуация под контролем.</p><p class="mini-note">Семья с 5 детьми</p></div>
+          <div class="card"><h3>«Минус перестал расти»</h3><p>Я жила в минусе и думала, что это нормально. Через несколько месяцев я остановила падение и начала его закрывать.</p><p class="mini-note">Женщина, 50 лет</p></div>
+          <div class="card"><h3>«Без давления и чувства вины»</h3><p>Вместо критики я получила спокойное объяснение и понимание, что делать с деньгами дальше.</p><p class="mini-note">Перевод с иврита</p></div>
         </div>
-            </div>
+        <div class="card" style="margin-top:18px; min-height:auto;">
+          <h3>Семья с 5 детьми: ремонт, страх и финансовое спокойствие</h3>
+          <p>Мы решили делать ремонт и строительство дома, но главным страхом были деньги: как не разрушить бюджет и сохранить спокойствие в семье.</p>
+          <p>Уже с первой встречи стало понятно, что происходит с деньгами. В процессе мы разобрали расходы, выстроили систему и увидели, где деньги “убегают”.</p>
+          <p>Сегодня мы понимаем, где каждый шекель, и принимаем решения спокойно, без стресса.</p>
+          <details style="margin-top:16px;"><summary>Читать оригинал на иврите</summary><div dir="rtl" style="margin-top:14px; color:var(--muted); line-height:1.8; text-align:right;"><p>אם אתם מחפשים יועץ פיננסי מקצועי, סבלני, אכפתי ויחס אישי – אני ממש ממליצה על איגור!!!</p><p>שמי אילנה, נשואה למהנדס, עם חמישה ילדים, עובדת כשכירה וגם עצמאית. בהחלטה משפחתית משותפת גבשנו דעה שהגיע זמן לעשות שיפוץ ובניה בביתינו בהקדם, אך הפחד הגדול היה איך נסתדר עם הוצאות כספיות ונשמור על השלווה במשפחה.</p><p>החלטתנו לפנות ליועץ פיננסי — זו הייתה אחת ההחלטות הכי טובות שעשינו.</p><p>קיבלנו הרבה מעבר למה שציפיתי. כבר מהפגישה הראשונה היה ברור שמדובר באיש מקצוע ורציני, עם ידע רחב, סבלנות אין-סופית ויכולת להנגיש מושגים פיננסיים בצורה פשוטה וברורה.</p><p>עברנו אתו תהליך מדהים של סדר והתארגנות כלכלית, קיבלנו כלים חשובים להבנה והתנהלות נכונה, והוא תמיד היה שם עם הסברים ברורים, עצות זהב והמון אכפתיות.</p><p>התהליך עם איגור עזר לנו לעשות סדר, לבנות תכנית כלכלית מותאמת אישית למשפחה שלנו והתנהלותה, ובעיקר להרגיש בשליטה וביטחון לגבי ההחלטות שמתקבלות במהלך השיפוץ.</p><p>במהלך הפגישות הוא ישב אתנו בסבלנות, עבר על כל ההוצאות, פירק את התקציב לגורמים והראה איפה הכסף "בורח". הוא עזר לבנות תזרים מזומנים מסודר, להבין מה ההכנסות האמיתיות שלנו ומה ההוצאות הקבועות, ובעיקר — להחזיר שליטה ולהוריד לחץ.</p><p>הוא לא רק סייע לנו לבנות תכנית כלכלית מסודרת ויעילה, אלא גם נתן כלים מעשיים להתנהלות פיננסית נכונה לעתיד, איפה להשקיע, איך לקנות דירה ועוד.</p><p>היום, כמה חודשים אחרי, אני מרגישה יציבה ובטוחה הרבה יותר. אני יודעת איפה כל שקל נמצא, לא נכנסת לפאניקה כשיש הוצאה פתאומית, ויש לי תכנית ברורה לעתיד.</p><p>ברצוני להודות מעומק הלב ליועץ הפיננסי איגור קונגורוב על הליווי המקצועי, ההכוונה המדויקת והיחס האישי לאורך כל הדרך.</p></div></details>
+        </div>
+        <div class="card" style="margin-top:18px; min-height:auto;">
+          <h3>Как я остановила минус и вернула контроль</h3>
+          <p>Мне 50 лет, я живу одна и каждый месяц плачу ипотеку и кредит. При этом минус только рос.</p>
+          <p>Это были не большие траты, а мелкие покупки и привычка закрывать глаза на цифры. Я думала, что почти все так живут.</p>
+          <p>Через несколько месяцев я остановила падение, не взяла новый кредит и начала возвращать минус назад.</p>
+          <p>Сегодня я управляю деньгами, а не они мной.</p>
+          <details style="margin-top:16px;"><summary>Читать оригинал на иврите</summary><div dir="rtl" style="margin-top:14px; color:var(--muted); line-height:1.8; text-align:right;"><p>היי, הגיע זמן לפידבק ממני 😊</p><p>קצת על עצמי, בת 50, גרושה, גרה לבד, פקידה במשרד קטן, מחזירה לבנק כל חודש משכנתא והלוואה נוספת.</p><p>יום אחד בפברואר האחרון גיליתי לחברה שלי על זה שמינוס בבנק רק טופח ולא מצליחה לסגור אותו.</p><p>לא בגלל אירועים חריגים או הוצאות גדולות פשוט שגרה של קניות ופינוקים קטנים ש"מגיע לי" ועוצמת עיניים מול הדוחות כל חודש ומחשבה שכמעט כולם חיים במינוס ואני לא יחידה כזאת.</p><p>באותו הרגע חברה אמרה שמבינה אותי ויש פתרון וקישרה בינינו.</p><p>הגעתי לייעוץ סקפטית אבל בתוכי היה סקרנות וקבלתי המלצות הכי טובות עליך.</p><p>בן אדם בטוח, בלי ביקורות, בלי נזיפות אלה עם הקשבה והכוונה מדויקת.</p><p>התחלתי לנהל כסף בלי להרגיש ענישה או אשמה. למדתי לזהות מתי הקניות שלי הן צורך אמיתי ומתי ניסיון למלא ריק רגשי. התחלתי להרוויח יותר ולבזבז פחות.</p><p>תוך כמה חודשים הצלחתי לעצור את ההידרדרות ולייצב את החשבון ואפילו לא לקחתי (מאוד חשוב) הלוואה נוספת והתחלתי להחזיר את המינוס לאחור.</p><p>קיבלתי חזרה את תחושת השליטה. אני זו שמובילה ואני לא קורבן של נסיבות.</p><p>שוב המון המון תודה וד"ש לחברה שלי 😉</p></div></details>
+        </div>
+      </div>
     </section>
 
     <section id="fit" class="system">
@@ -399,7 +171,8 @@
         <div class="section-label">Подойдёт ли вам это</div>
         <h2>Это не для всех. И это нормально.</h2>
         <p class="lead">Важно честно понять, на каком вы сейчас этапе.</p>
-        <div class="compare">
+        <p class="mini-note">Если вы узнали себя — <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">напишите</a>. Это первый шаг.</p>
+        <div class="compare" style="margin-top:18px;">
           <div class="compare-box good"><h3>Вам подойдёт, если:</h3><ul><li>✓ вы готовы честно посмотреть на цифры</li><li>✓ хотите понять, куда уходят деньги</li><li>✓ готовы менять финансовые решения</li><li>✓ хотите контроль, а не ограничения</li></ul></div>
           <div class="compare-box bad"><h3>Пока не подойдёт, если:</h3><ul><li>— ищете быстрый лайфхак</li><li>— не хотите разбираться в цифрах</li><li>— ждёте, что всё само наладится</li><li>— не готовы ничего менять</li></ul></div>
         </div>
@@ -409,12 +182,7 @@
     <section>
       <div class="container">
         <div class="cta-band">
-          <div>
-            <div class="section-label">Что делать дальше</div>
-            <h2>Хватит жить с ощущением “денег нет”, когда доход есть.</h2>
-            <p>Напишите в WhatsApp. Я отвечу лично и скажу, какой формат разбора вам подходит.</p>
-            <p class="mini-note" style="margin-top:8px; color:#ffb3b3;">Чем дольше откладываете — тем больше денег продолжает «утекать» незаметно.</p>
-          </div>
+          <div><div class="section-label">Что делать дальше</div><h2>Можно продолжать как сейчас. А можно один раз разобраться.</h2><p>Напишите в WhatsApp. Я отвечу лично, задам 2–3 вопроса и скажу, какой формат разбора вам подходит.</p><p class="mini-note" style="margin-top:8px; color:#ffb3b3;">Чем дольше откладываете — тем больше денег продолжает «утекать» незаметно.</p></div>
           <a href="#" class="btn wa-link" target="_blank" rel="noopener noreferrer">👉 Написать и получить первый ориентир</a>
         </div>
       </div>
@@ -422,41 +190,10 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <div>© 2026 Деньги под контролем. Не про экономию. Про управление семейными деньгами.</div>
-      <div class="footer-socials">
-        <a href="#" class="yt-link" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="#" class="fb-link" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a href="#" class="ig-link" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      </div>
-    </div>
+    <div class="container footer-inner"><div>© 2026 Куда деньги? Не про экономию. Про управление семейными деньгами.</div><div class="footer-socials"><a href="#" class="yt-link" target="_blank" rel="noopener noreferrer">YouTube</a><a href="#" class="fb-link" target="_blank" rel="noopener noreferrer">Facebook</a><a href="#" class="ig-link" target="_blank" rel="noopener noreferrer">Instagram</a><a href="#" class="wa-link" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></div>
   </footer>
 
-  <div class="floating-cta">
-    <a href="#" class="btn wa-link" target="_blank" rel="noopener noreferrer">👉 Написать и понять, куда уходят деньги</a>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const waLink = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_TEXT);
-
-      document.querySelectorAll(".wa-link").forEach(function(el) {
-        el.href = waLink;
-      });
-
-      document.querySelectorAll(".yt-link").forEach(function(el) {
-        el.href = YOUTUBE_LINK;
-      });
-
-      document.querySelectorAll(".fb-link").forEach(function(el) {
-        el.href = FACEBOOK_LINK;
-      });
-
-      document.querySelectorAll(".ig-link").forEach(function(el) {
-        el.href = INSTAGRAM_LINK;
-      });
-    });
-  </script>
+  <div class="floating-cta"><a href="#" class="btn wa-link" target="_blank" rel="noopener noreferrer">👉 Написать и понять, куда уходят деньги</a></div>
+  <script src="script.js"></script>
 </body>
 </html>
