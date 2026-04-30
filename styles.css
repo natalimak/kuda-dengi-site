@@ -247,3 +247,16 @@ footer{
 .fit-card li {
   margin-bottom: 8px;
 }
+/* FIX: блок "вам подходит / не подходит" */
+.cta-box {
+  background: #ffffff;
+  color: #111; /* ВАЖНО */
+}
+
+.cta-box h3 {
+  color: #111;
+}
+
+.cta-box li {
+  color: #333;
+}
