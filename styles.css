@@ -211,7 +211,7 @@ footer{
 .floating-cta .btn{width:100%}
 
 @media(max-width:900px){
-  .fit-grid {grid-template-columns: 1fr;  }
+  .fit-grid {grid-template-columns: 1fr; }
   .nav-links{display:none}
   .hero{padding:42px 0 32px}
   .hero-grid,.about-grid,.cta-box{grid-template-columns:1fr}
@@ -239,6 +239,7 @@ footer{
   border: 1px solid #e6e6e6;
   color: #111;
   transition: 0.25s ease;
+  min-height: auto;
 }
 
 /* структура списка */
@@ -250,11 +251,10 @@ footer{
 
 /* текст */
 .fit-card li {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #1a1a1a;
-  line-height: 1.6;
+  line-height: 1.45;
   font-weight: 400;
-  opacity: 1;
 }
 
 /* усиление ключевых слов */
