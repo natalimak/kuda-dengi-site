@@ -233,12 +233,21 @@ footer{
 }
 
 .fit-card {
+  color: #111;
   background: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 20px;
   padding: 25px;
+
+  color: #111; /* ВОТ ЭТО КЛЮЧ */
+}
+.fit-card h3 {
+  color: #111;
 }
 
+.fit-card li {
+  color: #333;
+}
 .fit-card ul {
   padding-left: 20px;
   margin-top: 15px;
