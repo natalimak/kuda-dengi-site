@@ -225,59 +225,65 @@ footer{
   body{padding-bottom:78px}
 }
 
-/* ===== FIT BLOCK ===== */
+/* ===== FIT BLOCK FIXED 11/10 ===== */
 
 .fit-card {
-  background: #fff;
+  background: #ffffff;
   border-radius: 20px;
   padding: 28px;
   border: 1px solid #e6e6e6;
   color: #111;
   transition: 0.25s ease;
-  backdrop-filter: blur(6px);
-
 }
 
+/* структура списка */
+.fit-card ul {
+  list-style: disc;
+  padding-left: 22px;
+  margin-top: 12px;
+}
+
+/* текст */
+.fit-card li {
+  margin-bottom: 12px;
+  color: #1a1a1a;
+  line-height: 1.6;
+  font-weight: 400;
+  opacity: 1;
+}
+
+/* усиление ключевых слов */
+.fit-card li b {
+  font-weight: 800;
+  color: #000;
+}
+
+/* заголовок */
 .fit-card h3 {
   font-size: 20px;
   margin-bottom: 12px;
 }
 
-.fit-card ul {
-  margin-top: 10px;
-}
+/* ===== ПОДХОДИТ (зелёный) ===== */
 
-.fit-card li {
-  margin-bottom: 12px;
-  color: #1a1a1a; /* сильный читаемый цвет */
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-.fit-card li {
-  margin-bottom: 12px;
-  color: #1a1a1a; /* сильный читаемый цвет */
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-/* ЗЕЛЁНЫЙ (подходит) */
 .fit-good {
   border: 1px solid rgba(126,214,165,0.5);
-  background: linear-gradient(135deg, rgba(126,214,165,0.12), #ffffff);
-}
-.fit-good li::marker {
-  color: #1f7a55;
+  background: linear-gradient(135deg, rgba(126,214,165,0.18), #ffffff);
 }
 
 .fit-good h3 {
   color: #1f7a55;
 }
 
-/* КРАСНЫЙ (не подходит) */
+.fit-good li::marker {
+  color: #1f7a55;
+}
+
+/* ===== НЕ ПОДХОДИТ (красный) ===== */
+
 .fit-bad {
   border: 1px solid rgba(255,107,107,0.5);
-  background: linear-gradient(135deg, rgba(255,107,107,0.12), #ffffff);
+  background: linear-gradient(135deg, rgba(255,107,107,0.18), #ffffff);
 }
 
 .fit-bad h3 {
@@ -287,7 +293,8 @@ footer{
 .fit-bad li::marker {
   color: #b23a3a;
 }
-/* hover эффект (дорогой визуал) */
+
+/* hover эффект */
 .fit-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(0,0,0,0.08);
