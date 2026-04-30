@@ -234,6 +234,8 @@ footer{
   border: 1px solid #e6e6e6;
   color: #111;
   transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+
 }
 
 .fit-card h3 {
@@ -246,15 +248,26 @@ footer{
 }
 
 .fit-card li {
-  margin-bottom: 10px;
-  color: #333;
-  line-height: 1.5;
+  margin-bottom: 12px;
+  color: #1a1a1a; /* сильный читаемый цвет */
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.fit-card li {
+  margin-bottom: 12px;
+  color: #1a1a1a; /* сильный читаемый цвет */
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 /* ЗЕЛЁНЫЙ (подходит) */
 .fit-good {
   border: 1px solid rgba(126,214,165,0.5);
   background: linear-gradient(135deg, rgba(126,214,165,0.12), #ffffff);
+}
+.fit-good li::marker {
+  color: #1f7a55;
 }
 
 .fit-good h3 {
@@ -271,6 +284,9 @@ footer{
   color: #b23a3a;
 }
 
+.fit-bad li::marker {
+  color: #b23a3a;
+}
 /* hover эффект (дорогой визуал) */
 .fit-card:hover {
   transform: translateY(-4px);
