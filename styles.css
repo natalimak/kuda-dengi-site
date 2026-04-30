@@ -211,6 +211,7 @@ footer{
 .floating-cta .btn{width:100%}
 
 @media(max-width:900px){
+  .fit-grid {grid-template-columns: 1fr;  }
   .nav-links{display:none}
   .hero{padding:42px 0 32px}
   .hero-grid,.about-grid,.cta-box{grid-template-columns:1fr}
@@ -226,7 +227,11 @@ footer{
 }
 
 /* ===== FIT BLOCK FIXED 11/10 ===== */
-
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 .fit-card {
   background: #ffffff;
   border-radius: 20px;
