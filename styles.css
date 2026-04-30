@@ -250,7 +250,7 @@ footer{
 /* FIX: блок "вам подходит / не подходит" */
 .cta-box {
   background: #ffffff;
-  color: #111; /* ВАЖНО */
+  color: #111 !important;
 }
 
 .cta-box h3 {
