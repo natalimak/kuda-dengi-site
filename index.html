@@ -198,20 +198,67 @@
     color: var(--text);
     font-size: 15px;
   }
-  .bar {
-    height: 6px;
-    border-radius: 3px;
-    background: #2A2A2A;
+  .budget-lead {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .bgt-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 7px;
+  }
+  .bgt-track {
+    display: flex;
+    height: 26px;
+    border-radius: 7px;
     overflow: hidden;
+    background: #232323;
+    margin-bottom: 18px;
   }
-  .bar-fill {
-    height: 100%;
+  .bgt-income { width: 78%; background: #5FA67D; }   /* зелёный — то, что приходит */
+  .bgt-seg { height: 100%; display:flex; align-items:center; justify-content:center; }
+  .s-home   { width: 44%; background: #C9A24B; }     /* жильё/еда — золотой */
+  .s-credit { width: 18%; background: #8C6A2E; }     /* кредиты — бронза */
+  .s-small  { width: 16%; background: #E6D2A0; }     /* мелочи — светлый */
+  .s-minus  {
+    width: 22%;
+    background: #D24B4B;                              /* красный — минус */
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .budget-legend {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .budget-legend li {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .budget-legend .dot {
+    width: 11px; height: 11px;
     border-radius: 3px;
+    margin-right: 8px;
+    flex-shrink: 0;
   }
-  .bar-income { background: var(--gold); width: 100%; }
-  .bar-fixed  { background: var(--gold); width: 62%; }
-  .bar-debt   { background: #CC4444; width: 14%; }
-  .bar-hidden { background: #DD8800; width: 20%; }
+  .dot-home   { background: #C9A24B; }
+  .dot-credit { background: #8C6A2E; }
+  .dot-small  { background: #E6D2A0; }
+  .dot-minus  { background: #D24B4B; }
+  @media (max-width: 480px){
+    .budget-legend { grid-template-columns: 1fr; }
+  }
 
   .budget-summary {
     background: #1E1E1E;
@@ -224,6 +271,52 @@
     color: var(--gold-light);
     line-height: 1.8;
   }
+
+  /* ── STORIES CAROUSEL ── */
+  .stories { margin-top: 20px; }
+  .stories-track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .stories-track::-webkit-scrollbar { display: none; }
+  .stories-track .case-card {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+    margin: 0;
+  }
+  .stories-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .stories-arrow {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,.15);
+    color: var(--gold);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: .2s;
+    flex-shrink: 0;
+  }
+  .stories-arrow:hover { background: var(--gold); color: #000; }
+  .stories-dots { display: flex; gap: 8px; }
+  .stories-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,.25);
+    cursor: pointer; transition: .2s;
+  }
+  .stories-dot.active { background: var(--gold); width: 22px; border-radius: 4px; }
 
   /* ── QUOTE ── */
   .quote-card {
@@ -565,7 +658,7 @@
 </style>
   <script>
     const WHATSAPP_NUMBER = "972526656406";
-    const WHATSAPP_TEXT = "Здравствуйте. У нас доход около ₪25–40k, но деньги не остаются. Хотим понять, куда они уходят, что давит на бюджет и как выйти из нуля или минуса.";
+    const WHATSAPP_TEXT = "БЮДЖЕТ";
     const YOUTUBE_LINK = "https://youtube.com/@dengi.povzroslomu";
     const FACEBOOK_LINK = "https://facebook.com/Igor.Kungurov.Family.Budget";
     const INSTAGRAM_LINK = "https://instagram.com/igor_kungurov_family_budget";
@@ -574,13 +667,13 @@
 <body>
 
 <!-- STICKY CTA -->
-<a href="https://kuda-dengi.co.il#contact" class="sticky-cta">
-  ⚡ Написать и понять, где вы теряете деньги
+<a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="sticky-cta">
+  Первая встреча — без обязательств. Написать «БЮДЖЕТ»
 </a>
 
-<!-- URGENCY BAR — ИСПРАВЛЕНО -->
+<!-- URGENCY BAR -->
 <div class="urgency-bar">
-  <span>⚡</span> В июне осталось одно место на разбор. Запись открыта.
+  Первая встреча — это знакомство: без оплаты и без обязательств.
 </div>
 
 <!-- HEADER -->
@@ -588,7 +681,7 @@
   <div class="logo">Куда <em>деньги?</em></div>
 </header>
 
-<!-- HERO — ИСПРАВЛЕНО: убран тег ₪25-40k, одна кнопка CTA -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-tag">у которых деньги есть — но контроля нет</div>
 
@@ -604,12 +697,12 @@
     Это не проблема дохода. Деньги живут без системы: приходят, исчезают — и снова ноль или минус.
   </p>
 
-  <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary">
-    Написать Игорю — хочу разбор
+  <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary">
+    Написать «БЮДЖЕТ»
   </a>
 
   <p class="hero-note">
-    Вы просто пишете: «хочу разбор». Я отвечу лично, задам 2–3 вопроса и дам первый ориентир.
+    Вы просто пишете «БЮДЖЕТ». В ответ — 7 вопросов, по которым видно, где у семьи течёт бюджет. Дальше — первая встреча: спокойный разговор, который ни к чему не обязывает.
   </p>
 </section>
 
@@ -619,72 +712,43 @@
 <section style="padding-top: 40px; padding-bottom: 40px;">
   <div class="budget-section">
     <div>
-      <span class="budget-tag">₪30,000 есть — контроля нет</span>
+      <span class="budget-tag">Деньги есть — контроля нет</span>
       <h2>Узнаёте картину?</h2>
     </div>
 
-    <div class="budget-row">
-      <div class="budget-row-top">
-        <span>Доход семьи</span>
-        <span class="amount">₪30,000</span>
-      </div>
-      <div class="bar"><div class="bar-fill bar-income"></div></div>
+    <p class="budget-lead">Доход приходит — а расходы оказываются длиннее. К концу месяца дохода уже не хватает.</p>
+
+    <div class="bgt-label">Сколько приходит</div>
+    <div class="bgt-track">
+      <div class="bgt-income"></div>
     </div>
 
-    <div class="budget-row">
-      <div class="budget-row-top">
-        <span>Жильё, еда, дети, машина</span>
-        <span class="amount">₪18,500</span>
-      </div>
-      <div class="bar"><div class="bar-fill bar-fixed"></div></div>
+    <div class="bgt-label">Сколько уходит</div>
+    <div class="bgt-track">
+      <div class="bgt-seg s-home"></div>
+      <div class="bgt-seg s-credit"></div>
+      <div class="bgt-seg s-small"></div>
+      <div class="bgt-seg s-minus">минус</div>
     </div>
 
-    <div class="budget-row">
-      <div class="budget-row-top">
-        <span>Кредиты, минус, рассрочки</span>
-        <span class="amount">₪4,300</span>
-      </div>
-      <div class="bar"><div class="bar-fill bar-debt"></div></div>
-    </div>
-
-    <div class="budget-row">
-      <div class="budget-row-top">
-        <span>«Мелочи», которые не видно</span>
-        <span class="amount">₪5,900</span>
-      </div>
-      <div class="bar"><div class="bar-fill bar-hidden"></div></div>
-    </div>
+    <ul class="budget-legend">
+      <li><span class="dot dot-home"></span>Жильё, еда, дети, машина</li>
+      <li><span class="dot dot-credit"></span>Кредиты, рассрочки</li>
+      <li><span class="dot dot-small"></span>«Мелочи», которые не видно</li>
+      <li><span class="dot dot-minus"></span>Расходы сверх дохода</li>
+    </ul>
 
     <div class="budget-summary">
-      Доход есть → контроля нет → деньги исчезают
+      Доход есть → контроля нет → месяц в минусе
     </div>
   </div>
 
-  <div style="margin-top: 20px;">
-    <div class="quote-card">
-      <p class="quote-text">«Через месяц я впервые за год не ушла в минус»</p>
-      <p class="quote-attr">— Женщина, 50 лет</p>
-    </div>
-  </div>
-
-  <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary" style="margin-top: 8px;">
-    ⚡ Написать и понять, где вы теряете деньги
+  <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary" style="margin-top: 8px;">
+    Написать «БЮДЖЕТ»
   </a>
 </section>
 
 <hr class="divider">
-
-<!-- QUOTES -->
-<section class="pt-0">
-  <div class="quote-card">
-    <p class="quote-text">«Мы знаем, где каждый шекель, и принимаем решения спокойно»</p>
-    <p class="quote-attr">— Илана, семья с 5 детьми</p>
-  </div>
-  <div class="quote-card">
-    <p class="quote-text">«Сейчас у нас приличный плюс. Можем строить планы»</p>
-    <p class="quote-attr">— Семья из Петах-Тиквы</p>
-  </div>
-</section>
 
 <!-- RECOGNITION -->
 <section>
@@ -707,8 +771,8 @@
     <p>Отпуск, ремонт, помощь детям, крупная покупка — всё кажется «не сейчас».</p>
   </div>
 
-  <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary" style="margin-top: 8px;">
-    ⚡ Написать и понять, где вы теряете деньги
+  <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary" style="margin-top: 8px;">
+    Написать «БЮДЖЕТ»
   </a>
 </section>
 
@@ -716,9 +780,11 @@
 
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
-  <div class="section-label">КАК ПРОХОДИТ РАЗБОР</div>
+  <div class="section-label">КАК ПРОХОДИТ ПЕРВАЯ ВСТРЕЧА</div>
   <h2 class="how-h2">Вы продолжаете жить как раньше. Меняется только контроль.</h2>
-  <p class="how-sub">Разбор показывает, что происходит с деньгами: куда они уходят, почему не остаются и где можно вернуть контроль.</p>
+  <p class="how-sub">Первая встреча — это знакомство: спокойно говорим про вашу жизнь, ситуацию и к чему вы хотите прийти. Без цифр под микроскопом, без оплаты и без обязательств. Вы уходите с первым пониманием, в какую сторону двигаться.</p>
+
+  <p class="how-sub" style="color: var(--gold-light); font-weight: 600;">Если после встречи решаем работать дальше — это уже разбор:</p>
 
   <div class="step-card">
     <div class="step-num">01</div>
@@ -749,8 +815,8 @@
     </div>
   </div>
 
-  <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary" style="margin-top: 8px;">
-    ⚡ Написать и понять, где вы теряете деньги
+  <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary" style="margin-top: 8px;">
+    Написать «БЮДЖЕТ»
   </a>
 </section>
 
@@ -784,11 +850,11 @@
   </div>
 
   <p style="font-size: 14px; color: var(--text-muted); margin-top: 16px; line-height: 1.6;">
-    Если вы узнали себя — не тяните дальше. Это ровно та точка, где теряется контроль. На разборе станет видно, куда уходят деньги и что с этим делать.
+    Если вы узнали себя — не тяните дальше. Это ровно та точка, где теряется контроль. С этого и начинается первая встреча: спокойно посмотрим, что происходит, и куда из этого идти.
   </p>
 
-  <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary" style="margin-top: 20px;">
-    Разобрать мою ситуацию
+  <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary" style="margin-top: 20px;">
+    Написать «БЮДЖЕТ»
   </a>
 </section>
 
@@ -799,7 +865,7 @@
   <div class="section-label">РЕЗУЛЬТАТ ВСТРЕЧИ</div>
   <h2 class="result-h2">Уже после первой встречи есть чёткое направление. К завершению процесса — измеримый результат.</h2>
   <p class="result-body">
-    После первой встречи вы понимаете, где теряются деньги и какие шаги делать сразу. К завершению процесса деньги перестают исчезать и начинают оставаться: снижается нагрузка, появляются накопления и, как правило, высвобождается до <span class="highlight-number">15% бюджета</span> — без увеличения дохода.
+    После первой встречи появляется ясность: вы видите свою ситуацию целиком и понимаете, в какую сторону двигаться. А дальше, в работе, деньги постепенно перестают исчезать — снижается нагрузка, появляются накопления, бюджет начинает дышать. Без увеличения дохода.
   </p>
 </section>
 
@@ -811,108 +877,77 @@
   <h2 class="testimonial-intro">Люди приходят с хаосом. Уходят с системой.</h2>
   <p class="testimonial-sub">Отзывы ниже — не «понравилось». Это конкретные изменения: было → стало.</p>
 
-  <div class="testimonial-big">
-    <blockquote>«Я перестала быть жертвой обстоятельств. Теперь я управляю деньгами, а не они мной».</blockquote>
-    <cite>Женщина, 50 лет · перевод с иврита</cite>
-  </div>
-  <div class="testimonial-big">
-    <blockquote>«Сегодня мы знаем, где каждый шекель, и принимаем решения спокойно».</blockquote>
-    <cite>Илана · семья с 5 детьми · перевод с иврита</cite>
-  </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section class="pt-0">
+  <!-- STORIES -->
+  <div class="stories">
+    <div class="stories-track" id="storiesTrack">
   <div class="case-card">
-    <h3>Минус перестал расти</h3>
+    <h3>Из хаоса и тревоги — в контроль и спокойствие</h3>
     <div class="case-row">
       <div class="case-label">Было</div>
-      <div class="case-text">постоянный минус, кредиты, ощущение безвыходности.</div>
+      <div class="case-text">деньги тратились сразу после прихода, бюджет не вёлся. Доход долго не рос, несмотря на усилия. Приходилось пользоваться кредитками и занимать, деньги уходили сквозь пальцы — постоянная тревога и бессилие.</div>
     </div>
     <div class="case-row">
       <div class="case-label">Стало</div>
-      <div class="case-text">остановила минус, не взяла новый кредит и вернула контроль.</div>
+      <div class="case-text">полностью изменилось отношение к деньгам — стало точно понятно, куда что уходит. Появилось ощущение контроля, спокойствие и возможность планировать будущее.</div>
     </div>
+    <cite style="display:block; margin-top:14px; font-size:12px; color: var(--text-dim); font-style: normal;">— Маргарита З.</cite>
   </div>
 
   <div class="case-card">
-    <h3>Ремонт без потери контроля</h3>
+    <h3>Семья с пятью детьми: план, который подходит именно нам</h3>
     <div class="case-row">
       <div class="case-label">Было</div>
-      <div class="case-text">страх перед расходами и напряжение в семье из-за денег.</div>
+      <div class="case-text">пятеро детей, ремонт и стройка — расходы со всех сторон. Деньги уходили, и не было ощущения, что их можно держать под контролем.</div>
     </div>
     <div class="case-row">
       <div class="case-label">Стало</div>
-      <div class="case-text">система, спокойствие и понимание, где каждый шекель.</div>
+      <div class="case-text">построили финансовый план под нашу семью и получили инструменты, чтобы управлять деньгами. Знаю, где каждый шекель, не паникую при неожиданных расходах, и есть понятный план на будущее.</div>
     </div>
+    <cite style="display:block; margin-top:14px; font-size:12px; color: var(--text-dim); font-style: normal;">— Илана, семья с 5 детьми · перевод с иврита</cite>
   </div>
 
   <div class="case-card">
-    <h3>Из минуса — в плюс</h3>
+    <h3>Остановила минус и вернула контроль</h3>
     <div class="case-row">
       <div class="case-label">Было</div>
-      <div class="case-text">доход есть, но всегда ноль или минус.</div>
+      <div class="case-text">каждый месяц платила ипотеку и ещё один кредит, но минус в банке только рос. Не из-за крупных событий — мелкие покупки, «мне положено», закрытые глаза на отчёты.</div>
     </div>
     <div class="case-row">
       <div class="case-label">Стало</div>
-      <div class="case-text">стабильный плюс и спокойное планирование.</div>
+      <div class="case-text">научилась видеть, где покупка — настоящая потребность, а где эмоция, и управлять деньгами без вины. Остановила минус, не взяла новый кредит и вернула чувство контроля. «Теперь я управляю деньгами, а не они мной».</div>
     </div>
+    <cite style="display:block; margin-top:14px; font-size:12px; color: var(--text-dim); font-style: normal;">— Женщина, 50 лет · перевод с иврита</cite>
   </div>
 
   <div class="case-card">
-    <h3>Как я остановила минус и вернула контроль</h3>
+    <h3>Из минуса в плюс: водитель грузовика и метапелет</h3>
     <div class="case-row">
-      <div class="case-label">Боль</div>
-      <div class="case-text">каждый месяц я платила ипотеку и ещё один кредит, но минус в банке только рос.</div>
-    </div>
-    <div class="case-row">
-      <div class="case-label">Что происходило</div>
-      <div class="case-text">это было не из-за больших событий. Просто мелкие покупки, «мне положено», закрытые глаза на отчёты.</div>
+      <div class="case-label">Было</div>
+      <div class="case-text">на счёте всегда ноль или минус. Доход был, но планировать не получалось: долги за коммуналку, школа двоих детей, кредиты и мелочи — снежный ком, который сложно сломать.</div>
     </div>
     <div class="case-row">
-      <div class="case-label">Что изменилось</div>
-      <div class="case-text">я начала управлять деньгами без чувства наказания или вины, научилась видеть, где покупка — реальная потребность, а где эмоция.</div>
+      <div class="case-label">Стало</div>
+      <div class="case-text">вместе распланировали бюджет, и впервые стало понятно, куда уходят деньги. Вышли из минуса в плюс.</div>
     </div>
-    <div class="case-result">
-      <strong>Результат</strong>
-      Через несколько месяцев остановила ухудшение, не взяла новый кредит и начала закрывать минус. Главное — вернула чувство контроля.
-    </div>
-    <a href="#" class="read-original">▶ Читать оригинал на иврите</a>
+    <cite style="display:block; margin-top:14px; font-size:12px; color: var(--text-dim); font-style: normal;">— семья, перевод с иврита</cite>
   </div>
-
-  <div class="case-card">
-    <h3>Семья с 5 детьми: ремонт, строительство и финансовое спокойствие</h3>
-    <div class="case-row">
-      <div class="case-label">Что изменилось</div>
-      <div class="case-text">построили финансовый план, который подходит именно нашей семье, и получили инструменты для правильного управления деньгами.</div>
     </div>
-    <div class="case-result">
-      <strong>Результат</strong>
-      Спустя несколько месяцев чувствую себя стабильнее и увереннее. Знаю, где каждый шекель, не паникую при неожиданных расходах, и у меня есть понятный план на будущее.
-    </div>
-    <a href="#" class="read-original">▶ Читать оригинал на иврите</a>
-  </div>
-
-  <div class="case-card">
-    <h3>Семья: водитель грузовика и метапелет — из минуса в плюс</h3>
-    <div class="case-row">
-      <div class="case-label">Боль</div>
-      <div class="case-text">на счёте всегда был ноль или минус. Доход был, но мы всё равно не могли планировать деньги.</div>
-    </div>
-    <div class="case-row">
-      <div class="case-label">Что происходило</div>
-      <div class="case-text">долги за коммунальные платежи, школа двоих детей, кредиты и много мелочей. Из мелочей образовался снежный ком, который сложно сломать.</div>
-    </div>
-    <div class="case-row">
-      <div class="case-label">Что изменилось</div>
-      <div class="case-text">Игорь помог распланировать бюджет, и впервые стало понятно, куда уходят деньги.</div>
+    <div class="stories-nav">
+      <button class="stories-arrow" id="storiesPrev" aria-label="Предыдущий отзыв">&lsaquo;</button>
+      <div class="stories-dots">
+        <span class="stories-dot active"></span>
+        <span class="stories-dot"></span>
+        <span class="stories-dot"></span>
+        <span class="stories-dot"></span>
+      </div>
+      <button class="stories-arrow" id="storiesNext" aria-label="Следующий отзыв">&rsaquo;</button>
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ABOUT — ИСПРАВЛЕНО: добавлена реальная биография -->
+<!-- ABOUT -->
 <section id="about">
   <div class="section-label">ОБО МНЕ</div>
   <h2 class="about-h2">Я не учу экономить. Я помогаю вернуть контроль над деньгами.</h2>
@@ -930,8 +965,7 @@
 
   <div class="about-credentials">
     <span>Квалификация:</span> консультант по семейному бюджету и финансам, Бар-Иланский университет<br>
-    <span>Опыт:</span> с 2016 года, более 50 семей<br>
-    <span>Язык работы:</span> русский
+    <span>Язык работы:</span> русский и иврит
   </div>
 </section>
 
@@ -941,9 +975,9 @@
 <section id="contact">
   <div class="final-cta">
     <h2>Можно продолжать терять деньги. Или разобраться.</h2>
-    <p>Напишите в WhatsApp. Я отвечу лично, задам 2–3 вопроса и скажу, какой формат разбора вам подходит.</p>
-    <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." class="btn-primary">
-      ⚡ Написать
+    <p>Напишите «БЮДЖЕТ». Пришлю 7 вопросов — по ним видно, где течёт бюджет. Дальше — первая встреча: спокойно посмотрим, что происходит, ни к чему не обязывает.</p>
+    <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" class="btn-primary">
+      Написать «БЮДЖЕТ»
     </a>
   </div>
 </section>
@@ -955,7 +989,7 @@
     <a href="https://youtube.com/@dengi.povzroslomu" target="_blank">YouTube</a>
     <a href="https://facebook.com/Igor.Kungurov.Family.Budget" target="_blank">Facebook</a>
     <a href="https://instagram.com/igor_kungurov_family_budget" target="_blank">Instagram</a>
-    <a href="https://wa.me/972526656406?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5.%20%D0%A3%20%D0%BD%D0%B0%D1%81%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%E2%82%AA25%E2%80%9340k%2C%20%D0%BD%D0%BE%20%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8%20%D0%BD%D0%B5%20%D0%BE%D1%81%D1%82%D0%B0%D1%8E%D1%82%D1%81%D1%8F.%20%D0%A5%D0%BE%D1%82%D0%B8%D0%BC%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D1%8C%2C%20%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BE%D0%BD%D0%B8%20%D1%83%D1%85%D0%BE%D0%B4%D1%8F%D1%82%2C%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%B0%D0%B2%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D1%8B%D0%B9%D1%82%D0%B8%20%D0%B8%D0%B7%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B8%D0%BB%D0%B8%20%D0%BC%D0%B8%D0%BD%D1%83%D1%81%D0%B0." target="_blank">WhatsApp</a>
+    <a href="https://wa.me/972526656406?text=%D0%91%D0%AE%D0%94%D0%96%D0%95%D0%A2" target="_blank">WhatsApp</a>
   </div>
 </footer>
 
@@ -969,5 +1003,25 @@
   });
 </script>
 
+<script>
+(function(){
+  var track = document.getElementById('storiesTrack');
+  if(!track) return;
+  var cards = track.querySelectorAll('.case-card');
+  var dots = document.querySelectorAll('.stories-dot');
+  if(!cards.length) return;
+  function step(){ return cards.length>1 ? (cards[1].offsetLeft - cards[0].offsetLeft) : cards[0].offsetWidth; }
+  function clamp(i){ return Math.max(0, Math.min(cards.length-1, i)); }
+  function current(){ return clamp(Math.round(track.scrollLeft / step())); }
+  function go(i){ track.scrollTo({ left: clamp(i)*step(), behavior:'smooth' }); }
+  function sync(){ var i=current(); dots.forEach(function(d,k){ d.classList.toggle('active', k===i); }); }
+  var t; track.addEventListener('scroll', function(){ window.clearTimeout(t); t=window.setTimeout(sync,60); });
+  var p=document.getElementById('storiesPrev'), n=document.getElementById('storiesNext');
+  if(p) p.addEventListener('click', function(){ go(current()-1); });
+  if(n) n.addEventListener('click', function(){ go(current()+1); });
+  dots.forEach(function(d,k){ d.addEventListener('click', function(){ go(k); }); });
+  sync();
+})();
+</script>
 </body>
 </html>
