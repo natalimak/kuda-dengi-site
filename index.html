@@ -227,14 +227,14 @@
     background: #232323;
     margin-bottom: 18px;
   }
-  .bgt-income { width: 78%; background: #5FA67D; }   /* зелёный — то, что приходит */
+  .bgt-income { width: 78%; background: #5FA67D; }
   .bgt-seg { height: 100%; display:flex; align-items:center; justify-content:center; }
-  .s-home   { width: 44%; background: #C9A24B; }     /* жильё/еда — золотой */
-  .s-credit { width: 18%; background: #8C6A2E; }     /* кредиты — бронза */
-  .s-small  { width: 16%; background: #E6D2A0; }     /* мелочи — светлый */
+  .s-home   { width: 44%; background: #C9A24B; }
+  .s-credit { width: 18%; background: #8C6A2E; }
+  .s-small  { width: 16%; background: #E6D2A0; }
   .s-minus  {
     width: 22%;
-    background: #D24B4B;                              /* красный — минус */
+    background: #D24B4B;
     color: #fff;
     font-size: 11px;
     font-weight: 800;
@@ -692,7 +692,7 @@
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-tag">Для семей, у которых деньги есть — но контроля нет</div>
 
   <h1>
@@ -719,7 +719,7 @@
 <hr class="divider">
 
 <!-- BUDGET VISUALIZATION -->
-<section style="padding-top: 40px; padding-bottom: 40px;">
+<section style="padding-top: 40px; padding-bottom: 40px;" id="budget">
   <div class="budget-section">
     <div>
       <span class="budget-tag">Деньги есть — контроля нет</span>
@@ -761,7 +761,7 @@
 <hr class="divider">
 
 <!-- RECOGNITION -->
-<section>
+<section id="recognition">
   <span class="recog-tag">ЗНАКОМО?</span>
   <h2 class="recog-h2">Вы не бедные. Но живёте так, будто доход в два раза меньше.</h2>
   <p style="font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
@@ -833,7 +833,7 @@
 <hr class="divider">
 
 <!-- FIT / NOT FIT -->
-<section>
+<section id="fit">
   <div class="section-label">КОМУ ЭТО ПОДХОДИТ И КОМУ НЕТ</div>
   <h2 style="font-family: 'Montserrat', sans-serif; font-size: clamp(22px, 5.5vw, 30px); font-weight: 800; line-height: 1.2; margin-bottom: 8px;">Кому это подходит и кому не подходит</h2>
   <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">Этот формат работы не для всех. Он подходит тем, кто готов навести порядок, а не искать очередной быстрый совет.</p>
@@ -870,19 +870,19 @@
 
 <hr class="divider">
 
-<!-- RESULT -->
-<section>
+<!-- RESULT (ИСПРАВЛЕНО: убрано прямое обещание "измеримый результат") -->
+<section id="result">
   <div class="section-label">РЕЗУЛЬТАТ ВСТРЕЧИ</div>
-  <h2 class="result-h2">Уже после первой встречи есть чёткое направление. К завершению процесса — измеримый результат.</h2>
+  <h2 class="result-h2">Уже после первой встречи появляется направление. Дальше — постепенные перемены, без спешки.</h2>
   <p class="result-body">
-    После первой встречи появляется ясность: вы видите свою ситуацию целиком и понимаете, в какую сторону двигаться. А дальше, в работе, деньги постепенно перестают исчезать — снижается нагрузка, появляются накопления, бюджет начинает дышать. Без увеличения дохода.
+    После первой встречи появляется ясность: вы видите свою ситуацию целиком и понимаете, в какую сторону двигаться. А дальше, в работе, многие замечают: деньги перестают исчезать незаметно, появляется ощущение контроля, и бюджет понемногу начинает дышать — без увеличения дохода.
   </p>
 </section>
 
 <hr class="divider">
 
 <!-- TESTIMONIALS -->
-<section>
+<section id="testimonials">
   <div class="section-label">ЧТО ГОВОРЯТ КЛИЕНТЫ</div>
   <h2 class="testimonial-intro">Люди приходят с хаосом. Уходят с системой.</h2>
   <p class="testimonial-sub">Отзывы ниже — не «понравилось». Это конкретные изменения: было → стало.</p>
@@ -1033,5 +1033,40 @@
   sync();
 })();
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     НОВОЕ: ТРЕКИНГ ПРОСМОТРА СЕКЦИЙ ПО GA4
+     Цель: увидеть, на какой именно секции люди останавливаются
+     и не доходят до WhatsApp-кнопки. Шлёт событие 'section_view'
+     с названием секции один раз за визит, когда секция видна
+     на 50% площади экрана.
+     Смотреть результат в GA4: Reports → Engagement → Events,
+     фильтр по event_name = section_view, параметр section_name.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  if (typeof gtag !== 'function') return;
+  var seen = {};
+  var sections = document.querySelectorAll('section[id]');
+  if (!sections.length || !('IntersectionObserver' in window)) return;
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var id = entry.target.id;
+      if (entry.isIntersecting && !seen[id]) {
+        seen[id] = true;
+        gtag('event', 'section_view', {
+          section_name: id,
+          section_order: Array.prototype.indexOf.call(sections, entry.target) + 1
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
 </body>
 </html>
