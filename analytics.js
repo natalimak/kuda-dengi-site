@@ -1,28 +1,13 @@
 (function () {
   'use strict';
-  function currentOfferText() {
-    var months = [
-      'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне',
-      'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'
-    ];
-    var monthNumber = Number(new Intl.DateTimeFormat('en', {
-      month: 'numeric',
-      timeZone: 'Asia/Jerusalem'
-    }).format(new Date()));
-    return '2 семьи в ' + months[monthNumber - 1];
-  }
-  function keepCurrentOfferMonth() {
+  function removeOfferLimit() {
     var label = document.querySelector('.offer-note span');
-    var currentText = currentOfferText();
-    if (label && label.textContent !== currentText) {
-      label.textContent = currentText;
-    }
+    if (label) label.remove();
   }
-  keepCurrentOfferMonth();
-  new MutationObserver(keepCurrentOfferMonth).observe(document.documentElement, {
+  removeOfferLimit();
+  new MutationObserver(removeOfferLimit).observe(document.documentElement, {
     childList: true,
-    subtree: true,
-    characterData: true
+    subtree: true
   });
   function sendEvent(name, parameters) {
     if (typeof window.gtag === 'function') window.gtag('event', name, parameters || {});
