@@ -1,17 +1,60 @@
 (function () {
   'use strict';
+
+  /*
+   * Navigation safety fix:
+   * Some browsers can keep the page in a locked smooth-scroll state after an
+   * in-page menu link is used. Temporarily disable smooth scrolling and clear
+   * any stale inline scroll locks before the browser follows the anchor.
+   */
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#' || !document.querySelector(hash)) return;
+
+    var root = document.documentElement;
+    var body = document.body;
+    var previousScrollBehavior = root.style.scrollBehavior;
+
+    root.style.scrollBehavior = 'auto';
+    root.style.removeProperty('overflow');
+    root.style.removeProperty('overflow-y');
+    root.style.removeProperty('height');
+    root.style.removeProperty('touch-action');
+    body.style.removeProperty('overflow');
+    body.style.removeProperty('overflow-y');
+    body.style.removeProperty('height');
+    body.style.removeProperty('position');
+    body.style.removeProperty('touch-action');
+
+    window.setTimeout(function () {
+      if (previousScrollBehavior) {
+        root.style.scrollBehavior = previousScrollBehavior;
+      } else {
+        root.style.removeProperty('scroll-behavior');
+      }
+    }, 250);
+  }, true);
+
   function removeOfferLimit() {
     var label = document.querySelector('.offer-note span');
     if (label) label.remove();
   }
+
   removeOfferLimit();
   new MutationObserver(removeOfferLimit).observe(document.documentElement, {
     childList: true,
     subtree: true
   });
+
   function sendEvent(name, parameters) {
-    if (typeof window.gtag === 'function') window.gtag('event', name, parameters || {});
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, parameters || {});
+    }
   }
+
   function sectionName(element) {
     var section = element.closest('[data-section-name], section[id]');
     if (section) return section.getAttribute('data-section-name') || section.id;
@@ -19,12 +62,14 @@
     if (element.classList.contains('mobile-cta')) return 'mobile-fixed';
     return 'unknown';
   }
+
   function buttonLocation(element) {
     if (element.classList.contains('mobile-cta')) return 'mobile-fixed';
     if (element.closest('header')) return 'header';
     var section = sectionName(element);
     return section === 'unknown' ? 'other' : section;
   }
+
   document.addEventListener('click', function (event) {
     var link = event.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
     if (!link) return;
@@ -35,9 +80,14 @@
       link_text: (link.textContent || '').trim().slice(0, 100)
     });
   });
-  var sections = Array.prototype.slice.call(document.querySelectorAll('[data-section-name], section[id]'));
+
+  var sections = Array.prototype.slice.call(
+    document.querySelectorAll('[data-section-name], section[id]')
+  );
   var seen = Object.create(null);
+
   if (!('IntersectionObserver' in window)) return;
+
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
@@ -51,5 +101,8 @@
       observer.unobserve(entry.target);
     });
   }, { threshold: 0.35 });
-  sections.forEach(function (section) { observer.observe(section); });
+
+  sections.forEach(function (section) {
+    observer.observe(section);
+  });
 })();
