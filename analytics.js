@@ -47,17 +47,6 @@
     }
   }, true);
 
-  function removeOfferLimit() {
-    var label = document.querySelector('.offer-note span');
-    if (label) label.remove();
-  }
-
-  removeOfferLimit();
-  new MutationObserver(removeOfferLimit).observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
-
   function sendEvent(name, parameters) {
     if (typeof window.gtag === 'function') {
       window.gtag('event', name, parameters || {});
