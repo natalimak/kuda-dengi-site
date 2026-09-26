@@ -2,23 +2,35 @@
   'use strict';
 
   /*
-   * Navigation safety fix:
-   * Some browsers can keep the page in a locked smooth-scroll state after an
-   * in-page menu link is used. Temporarily disable smooth scrolling and clear
-   * any stale inline scroll locks before the browser follows the anchor.
+   * In-page navigation fix:
+   * The Vinext client router treats hash-only links as RSC navigations and
+   * repeatedly requests /.rsc?_rsc, which returns 404 on GitHub Pages.
+   * Intercept those links before the router and perform a normal section
+   * scroll without a server request.
    */
   document.addEventListener('click', function (event) {
     var link = event.target.closest('a[href^="#"]');
     if (!link) return;
 
     var hash = link.getAttribute('href');
-    if (!hash || hash === '#' || !document.querySelector(hash)) return;
+    if (!hash || hash === '#') return;
+
+    var target;
+    try {
+      target = document.querySelector(hash);
+    } catch (error) {
+      return;
+    }
+    if (!target) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    if (typeof event.stopImmediatePropagation === 'function') {
+      event.stopImmediatePropagation();
+    }
 
     var root = document.documentElement;
     var body = document.body;
-    var previousScrollBehavior = root.style.scrollBehavior;
-
-    root.style.scrollBehavior = 'auto';
     root.style.removeProperty('overflow');
     root.style.removeProperty('overflow-y');
     root.style.removeProperty('height');
@@ -29,13 +41,10 @@
     body.style.removeProperty('position');
     body.style.removeProperty('touch-action');
 
-    window.setTimeout(function () {
-      if (previousScrollBehavior) {
-        root.style.scrollBehavior = previousScrollBehavior;
-      } else {
-        root.style.removeProperty('scroll-behavior');
-      }
-    }, 250);
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.location.hash !== hash) {
+      window.history.pushState(null, '', hash);
+    }
   }, true);
 
   function removeOfferLimit() {
