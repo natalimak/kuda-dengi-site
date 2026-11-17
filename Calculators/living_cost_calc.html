@@ -180,6 +180,17 @@ people.value='4';region.value='0';render();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+
+    document.addEventListener('click', function(event) {
+      var wa = event.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!wa) return;
+      sendCalcEvent('calculator_whatsapp_click', {
+        link_url: wa.href,
+        link_text: (wa.textContent || '').trim().slice(0, 100)
+      });
+    });
+
+
     document.querySelectorAll('#people, #region, #income, #saving').forEach(function(el) {
       el.addEventListener('change', trackCalculatorStart);
       el.addEventListener('input', trackCalculatorStart);
